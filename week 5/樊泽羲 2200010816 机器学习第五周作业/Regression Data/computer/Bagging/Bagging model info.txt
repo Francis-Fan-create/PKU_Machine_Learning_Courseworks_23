@@ -1,0 +1,10 @@
+  RegressionPartitionedEnsemble
+      CrossValidatedModel: 'Bag'
+           PredictorNames: {'vendorName'  'modelName'  'MYCT'  'MMIN'  'MMAX'  'CACH'  'CHMIN'  'CHMAX'  'PRP'}
+    CategoricalPredictors: [1 2]
+             ResponseName: 'ERP'
+          NumObservations: 209
+                    KFold: 5
+                Partition: [1×1 cvpartition]
+        NumTrainedPerFold: [100 100 100 100 100]
+        ResponseTransform: 'none'

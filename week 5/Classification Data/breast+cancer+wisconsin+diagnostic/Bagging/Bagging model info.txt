@@ -1,0 +1,9 @@
+CrossValidatedModel: 'Bag'
+         PredictorNames: {1×30 cell}
+           ResponseName: 'Diagnosis'
+        NumObservations: 569
+                  KFold: 5
+              Partition: [1×1 cvpartition]
+      NumTrainedPerFold: [100 100 100 100 100]
+             ClassNames: [B    M]
+         ScoreTransform: 'none'

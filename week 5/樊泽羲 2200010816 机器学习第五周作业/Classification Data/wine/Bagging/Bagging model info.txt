@@ -1,0 +1,10 @@
+  ClassificationPartitionedEnsemble
+    CrossValidatedModel: 'Bag'
+         PredictorNames: {1×13 cell}
+           ResponseName: 'class'
+        NumObservations: 178
+                  KFold: 5
+              Partition: [1×1 cvpartition]
+      NumTrainedPerFold: [100 100 100 100 100]
+             ClassNames: [1 2 3]
+         ScoreTransform: 'none'

@@ -1,0 +1,14 @@
+    TrueLabel    PredictedLabel
+    Diagnosis                  
+    _________    ______________
+
+        B            {'B'}     
+        B            {'B'}     
+        B            {'B'}     
+        B            {'B'}     
+        M            {'M'}     
+        B            {'B'}     
+        B            {'B'}     
+        M            {'M'}     
+        B            {'B'}     
+        B            {'B'}   

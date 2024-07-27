@@ -1,0 +1,12 @@
+集成了 100 个装袋决策树:
+                    Training X:             [395x32]
+                    Training Y:              [395x1]
+                        Method:           regression
+                 NumPredictors:                   32
+         NumPredictorsToSample:                   11
+                   MinLeafSize:                    5
+                 InBagFraction:                    1
+         SampleWithReplacement:                    1
+          ComputeOOBPrediction:                    1
+ ComputeOOBPredictorImportance:                    1
+                     Proximity:                   []

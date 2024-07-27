@@ -1,0 +1,13 @@
+集成了 100 个装袋决策树:
+                    Training X:             [569x30]
+                    Training Y:              [569x1]
+                        Method:       classification
+                 NumPredictors:                   30
+         NumPredictorsToSample:                    6
+                   MinLeafSize:                    5
+                 InBagFraction:                    1
+         SampleWithReplacement:                    1
+          ComputeOOBPrediction:                    1
+ ComputeOOBPredictorImportance:                    1
+                     Proximity:                   []
+                    ClassNames:             'B'             'M'

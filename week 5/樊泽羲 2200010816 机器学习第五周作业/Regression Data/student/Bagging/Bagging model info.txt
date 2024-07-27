@@ -1,0 +1,11 @@
+
+  RegressionPartitionedEnsemble
+      CrossValidatedModel: 'Bag'
+           PredictorNames: {1×32 cell}
+    CategoricalPredictors: [1 2 4 6 9 10 11 12 16 17 18 19 20 21 22 23]
+             ResponseName: 'G3'
+          NumObservations: 395
+                    KFold: 5
+                Partition: [1×1 cvpartition]
+        NumTrainedPerFold: [100 100 100 100 100]
+        ResponseTransform: 'none'

@@ -1,0 +1,49 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, graphicx, hyperref, mathrsfs}
+
+\title{\textbf{机器学习 第一周作业}}
+\author{樊泽羲 2200010816}
+\date{\today}
+\linespread{1.5}
+\newcounter{problemname}
+\newenvironment{problem}{\stepcounter{problemname}\par\noindent\textbf{题目\arabic{problemname}. }}{\\\par}
+\newenvironment{solution}{\par\noindent\textbf{解答. }}{\\\par}
+\newenvironment{note}{\par\noindent\textbf{题目\arabic{problemname}的注记. }}{\\\par}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+    简要论述交叉验证法与自助法的异同
+\end{problem}
+
+\begin{solution}
+    \par
+    交叉验证法：分为简单交叉验证法与k折交叉验证法。前者通过给定T'集与V集的数量或比例
+    对原始的T集进行随机划分，再进行训练，通过多次训练的R取平均值得到模型的测评结果。后者通过
+    在模型训练前把T随机分为k个互不相交、大小相似的子集，每次取其中的一个作为V,其余用作此次训练
+    的T'。当V遍历k份数据中的每一个后，将这k次的经验误差取均值作为评估结果
+    \par
+    自助法：固定训练集大小$\mid T \mid$,对训练集进行有放回抽样$\mid T \mid $次，每次将结果拷贝到
+    新的训练集T'，并将T中未被抽中的部分分出作为V，把T'上训练的网络在V上的R作为此次训练的误差，多次重复
+    的误差取平均值作为测评结果
+    \par
+    共同点：
+    \par\; 1.都是重抽样方法；
+    \par\; 2.都可以用于选择合适的模型参数或结构；
+    \par\; 3.都需要多次采样取结果的平均值；
+    \par\; 4.都通过划分来评估模型的性能
+    \par
+    不同点：
+    \par\; 1.抽样方式不同：交叉验证法是无放回抽样，而自助法是有放回抽样；
+    \par\; 2.训练数据的结构不同：交叉验证法的训练集规模小于$\mid T \mid$ ,且不会
+       改变数据的分布，而自助法中的训练集可能会包含T中的同一个数据点多次，导致
+       数据的分布改变；
+    \par\; 3.对$h_T$估计的准确性不同：自助法的T'规模达到了$\mid T \mid$，对$h_T$的
+         估计相较交叉验证法更加精准；
+    \par\; 4.交叉验证法更适用于数据集较大的情况下，能够更准确地评估模型的性能和泛化能力,自助法则更适用于数据集较小的情况下，能够更高效地利用数据进行模型评估    
+\end{solution}
+
+
+\end{document}

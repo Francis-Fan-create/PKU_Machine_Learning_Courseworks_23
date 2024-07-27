@@ -1,0 +1,100 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, graphicx, hyperref, mathrsfs,subfigure,float,adjustbox}
+
+\title{\textbf{机器学习 第三周作业}}
+\author{樊泽羲 2200010816}
+\date{\today}
+\linespread{1.5}
+\newcounter{problemname}
+\newenvironment{problem}{\stepcounter{problemname}\par\noindent\textbf{题目\arabic{problemname}. }}{\\\par}
+\newenvironment{solution}{\par\noindent\textbf{解答. }}{\\\par}
+\newenvironment{note}{\par\noindent\textbf{题目\arabic{problemname}的注记. }}{\\\par}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+    定义如下支持向量机：
+    \begin{align*}
+        min_{w,b,\xi } \ &\frac{1}{2} \left \| w \right \|^2 + C \sum_{i=1}^{N} \xi_i^2 \\
+        s.t. \ &y_i(w \cdot x_i+b)\geq 1-\xi_i, i=1,2,\cdots,N\\
+               &\xi_i\geq 0, i=1,2,\cdots,N
+    \end{align*}
+    试求其对偶形式
+\end{problem}
+\begin{solution}
+    \begin{align*}
+        &L(w,b,\xi,\alpha,\beta)=\frac{1}{2} \left \| w \right \|^2 + C \sum_{i=1}^{N} \xi_i^2-\sum_{i=1}^{N}  \alpha_i [y_i (wx_i+b)-1+\xi_i]-\sum_{i=1}^{N} \beta_i \xi_i \\
+        &\text{原问题化为无约束优化问题：}min_{w,b,\xi } max_{\alpha_i,\beta_i\geq 0} L(w,b,\xi,\alpha,\beta)\\
+        &\text{对偶问题: } max_{\alpha_i,\beta_i\geq 0} min_{w,b,\xi } L(w,b,\xi,\alpha,\beta)\\
+        &\text{对L的各个变量求导：}\\
+        &\frac{\partial L}{\partial w}=w-\sum_{i=1}^{N} \alpha_i y_i x_i  =0\Longrightarrow w=\sum_{i=1}^{N} \alpha_i y_i x_i\\
+        &\frac{\partial L}{\partial b}=-\sum_{i=1}^{N} \alpha_i y_i=0\Longrightarrow \sum_{i=1}^{N} \alpha_i y_i=0\\
+        &\frac{\partial L}{\partial \xi_i}=2C\xi_i-\alpha_i-\beta_i=0\Longrightarrow \xi_i=\frac{\alpha_i+\beta_i}{2C}\\
+        &\text{代入整理可得：}\\
+        &min_{w,b,\xi} L=-\frac{1}{2} \sum_{i,j} \alpha_i \alpha_j x_i x_j y_i y_j -\frac{1}{4C} \sum_{i} (\alpha_i+\beta_i)^2 +\sum_i \alpha_i\\
+        &\text{从而最终的对偶问题为：}\\
+        &max_{\alpha_i,\beta_i\geq 0} -\frac{1}{2} \sum_{i,j} \alpha_i \alpha_j x_i x_j y_i y_j -\frac{1}{4C} \sum_{i} (\alpha_i+\beta_i)^2 +\sum_i \alpha_i
+    \end{align*}
+\end{solution}
+\newpage
+\begin{problem}
+    证明讲义中的公式(35)
+\end{problem}
+\begin{solution}
+    设当前选择的需要更新的拉格朗日乘子为 $\alpha_1$ 和 $\alpha_2$, 其他拉格朗 日乘子 $\alpha_i(3 \leq i \leq N)$ 在本轮参数更新中保持不变. 由松弛互补条件 $\sum_{i=1}^N \alpha_i y_i=0$ 可知
+$$
+\alpha_1 y_1+\alpha_2 y_2+\sum_{i=3}^N \alpha_i y_i=0 .
+$$
+上式两边乘以 $y_1$ 得到
+$$
+\begin{array}{l}
+\alpha_1+\alpha_2 y_1 y_2+\sum_{i=3}^N \alpha_i y_1 y_i=0 . \\
+\Longrightarrow\alpha_1+s \alpha_2=\gamma .
+\end{array}
+$$
+$\text {其中} \gamma=-\sum_{i=3}^N \alpha_i y_1 y_i, s=y_1 y_2 \in\{-1,+1\} $\par
+令 $K_{i j}=x_i \cdot x_j$ 且 $v_i=\sum_{j=3}^N \alpha_j y_j K_{i j}(i=1,2)$, 则将对偶问题转化为 下面关于拉格朗日乘子 $\alpha_1$ 和 $\alpha_2$ 的优化问题:
+$$
+\begin{array}{cl}
+\max _{\alpha_1, \alpha_2} & W_1\left(\alpha_1, \alpha_2\right), \\
+\text { s.t. } & 0 \leq \alpha_1, \alpha_2 \leq C, \\
+& \alpha_1+s \alpha_2=\gamma .
+\end{array}
+$$
+其中
+$$
+\begin{aligned}
+W_1\left(\alpha_1, \alpha_2\right)= & \alpha_1+\alpha_2-\frac{1}{2} K_{11} \alpha_1^2-\frac{1}{2} K_{22} \alpha_2^2 \\
+& -s K_{12} \alpha_1 \alpha_2-y_1 \alpha_1 v_1-y_2 \alpha_2 v_2
+\end{aligned}
+$$
+由约束 $\alpha_1+s \alpha_2=\gamma$ 可得
+$$
+\alpha_1=\gamma-s \alpha_2
+$$
+将其代入 $W_1\left(\alpha_1, \alpha_2\right)$, 并令
+$$
+W_2\left(\alpha_2\right)=W_1\left(\gamma-s \alpha_2, \alpha_2\right) .
+$$
+令 $W_2\left(\alpha_2\right)$ 对 $\alpha_2$ 的导数为 0 , 可以得到
+$$
+\alpha_2=\frac{s\left(K_{11}-K_{12}\right) \gamma+y_2\left(v_1-v_2\right)-s+1}{\eta},
+$$
+其中
+$$
+\eta=K_{11}+K_{22}-2 K_{12}
+$$
+\par\noindent 又有：
+    \begin{align*}
+        \alpha_2&=\frac{s(K_{11}-K_{22})\gamma+y_2(v_1-v_2)-s+1}{\eta}\\
+                &=\frac{y_1 y_2 (K_{11}-K_{22})\gamma+y_2(f(x_1)-f(x_2))+\alpha_2^\star \eta -y_1 y_2 \gamma (K_{11}-K_{22})-s+1}{\eta}\\
+                &=\frac{y_2 f(x_1)-y_2 f(x_2)-y_1 y_2+y_2^2}{\eta}+\alpha_2^\star\\
+                &=y_2\cdot \frac{(f(x_1)-y_1)-(f(x_2)-y_2)}{\eta}+\alpha_2^\star\\
+                &=y_2\cdot \frac{(y_2-f(x_2))-(y_1-f(x_1))}{\eta}+\alpha_2^\star\\
+    \end{align*}
+\par
+这样就得到了未剪辑时$\alpha_2$的更新公式
+\end{solution}
+\end{document}
